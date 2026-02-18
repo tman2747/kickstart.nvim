@@ -15,6 +15,7 @@ return {
   },
   opts = {
     filesystem = {
+      bind_to_cwd = true,
       window = {
         mappings = {
           ['\\'] = 'close_window',

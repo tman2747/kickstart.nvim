@@ -594,6 +594,8 @@ require('lazy').setup({
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --  See `:help lsp-config` for information about keys and how to configure
+      --
+      --  server tables
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -605,6 +607,9 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
+        clangd = {},
+        pyright = {},
+        omnisharp = {},
         ts_ls = {},
         eslint = {},
         tailwindcss = {},
@@ -612,6 +617,8 @@ require('lazy').setup({
         cssmodules_ls = {},
         css_variables = {},
         emmet_language_server = {},
+        html = {},
+        cssls = {},
         jsonls = {},
         lua_ls = {
           settings = {
@@ -711,6 +718,14 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        javascript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
+        css = { 'prettier' },
+        html = { 'prettier' },
+        json = { 'prettier' },
+
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --

@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -150,6 +150,14 @@ vim.o.splitbelow = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+-- Auto-save every 1000ms (1 second) of inactivity
+vim.opt.updatetime = 1000
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+  callback = function()
+    if vim.bo.modified and vim.bo.buftype == '' then vim.cmd 'silent! write' end
+  end,
+})
+
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
 
@@ -169,7 +177,7 @@ vim.o.confirm = true
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
--- WARN: This keymap was setup by Trison :)
+-- TODO: This keymap was setup by Trison :)
 -- it does the save and autoformat
 vim.keymap.set('n', '<C-s>', '<cmd>w<cr>', { desc = 'Save' })
 

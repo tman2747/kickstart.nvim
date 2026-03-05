@@ -158,6 +158,12 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
   end,
 })
 
+-- TODO: hopefully fixed tab lines when opening new file
+vim.o.expandtab = true -- Use spaces instead of tabs
+vim.o.tabstop = 2 -- Display tabs as 2 spaces wide
+vim.o.shiftwidth = 2 -- Auto-indent uses 2 spaces
+vim.o.softtabstop = 2 -- Pressing tab inserts 2 spaces
+
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
 

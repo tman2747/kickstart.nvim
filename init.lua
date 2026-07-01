@@ -151,7 +151,7 @@ vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- Auto-save every 1000ms (1 second) of inactivity
-vim.opt.updatetime = 1000
+vim.opt.updatetime = 100
 vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
   callback = function()
     if vim.bo.modified and vim.bo.buftype == '' then vim.cmd 'silent! write' end

@@ -629,7 +629,24 @@ require('lazy').setup({
         -- ts_ls = {},
         clangd = {},
         pyright = {},
-        omnisharp = {},
+        omnisharp = {
+          enable_roslyn_analyzers = true,
+          enable_import_completion = true,
+          organize_imports_on_format = true,
+
+          settings = {
+            FormattingOptions = {
+              EnableEditorConfigSupport = true,
+              OrganizeImports = true,
+            },
+
+            RoslynExtensionsOptions = {
+              EnableAnalyzersSupport = true,
+              EnableImportCompletion = true,
+              AnalyzeOpenDocumentsOnly = false,
+            },
+          },
+        },
         ts_ls = {},
         eslint = {},
         tailwindcss = {},
@@ -669,6 +686,8 @@ require('lazy').setup({
         'json-lsp',
         'lua-language-server',
         'stylua',
+        'omnisharp', -- NOTE: for unity
+        'csharpier',
       }
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -745,6 +764,7 @@ require('lazy').setup({
         css = { 'prettier' },
         html = { 'prettier' },
         json = { 'prettier' },
+        c_sharp = { 'csharpier' },
 
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
@@ -920,7 +940,7 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     config = function()
-      local filetypes = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+      local filetypes = { 'bash', 'c', 'c_sharp', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
       require('nvim-treesitter').install(filetypes)
       vim.api.nvim_create_autocmd('FileType', {
         pattern = filetypes,

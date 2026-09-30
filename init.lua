@@ -50,9 +50,7 @@ Kickstart Guide:
       - :
       - Tutor
       - <enter key>
-
-    (If you already know the Neovim basics, you can skip this step.)
-
+(If you already know the Neovim basics, you can skip this step.)
   Once you've completed that, you can continue working through **AND READING** the rest
   of the kickstart init.lua.
 
@@ -211,6 +209,10 @@ vim.diagnostic.config {
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- nvchad/ui's cheatsheet (:NvCheatsheet, wired up in nvchad-ui.lua): a searchable grid of
+-- every keymap currently registered, grouped by desc, so it stays in sync with this file.
+vim.keymap.set('n', '<leader>ch', '<cmd>NvCheatsheet<CR>', { desc = 'Open [Ch]eatsheet' })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -264,6 +266,9 @@ end
 ---@type vim.Option
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
+
+-- nvchad/ui statusline + tabufline highlight cache (must be set before lazy.setup)
+vim.g.base46_cache = vim.fn.stdpath 'data' .. '/base46_cache/'
 
 -- [[ Configure and install plugins ]]
 --
@@ -996,6 +1001,11 @@ require('lazy').setup({
     },
   },
 })
+
+-- Load only the statusline highlight cache from nvchad/base46 (skips "defaults" so it
+-- doesn't clobber the catppuccin colorscheme). Wrapped in pcall: on a fresh install the
+-- cache won't exist yet until the base46 plugin's build step runs once.
+pcall(dofile, vim.g.base46_cache .. 'statusline')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
